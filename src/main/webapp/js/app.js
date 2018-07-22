@@ -16,13 +16,13 @@ function showBook(id) {
     });
 
     function displayBook(book) {
-        var div = $("<div>").addClass("card").style("width: 18rem;");
-        var id = $("<div>").addClass("card-header").text("Id# ").text(elem.id);
-        var isbn = $("<p>").text(elem.isbn);
-        var title = $("<p>").text(elem.title);
-        var author = $("<p>").text(elem.author);
-        var publisher = $("<p>").text(elem.publisher);
-        var type = $("<p>").text(elem.type);
+        let div = $("<div>").addClass("card").style("width: 18rem;");
+        let id = $("<div>").addClass("card-header").text("Id# ").text(elem.id);
+        let isbn = $("<p>").text(elem.isbn);
+        let title = $("<p>").text(elem.title);
+        let author = $("<p>").text(elem.author);
+        let publisher = $("<p>").text(elem.publisher);
+        let type = $("<p>").text(elem.type);
         div.append(id).append(isbn).append(isbn).append(title).append(author).append(publisher).append(type);
         $("#books").append(div);
     }
@@ -43,17 +43,17 @@ function showBooks() {
         $("#books").empty();
 
         for (elem of books) {
-            var div = $("<div>").addClass("card").css("width", "30%").css("margin-top", "2%");
-            var id = $("<div>").addClass("card-header").text("Id# " + elem.id);
-            var ul = $("<ul>").addClass("list-group list-group-flush");
-            var liIsbn = $("<li>").addClass("list-group-item").text(elem.isbn);
-            var liTitle = $("<li>").addClass("list-group-item").text(elem.title);
-            var liAuthor = $("<li>").addClass("list-group-item").text(elem.author);
-            var liPublisher = $("<li>").addClass("list-group-item").text(elem.publisher);
-            var liType = $("<li>").addClass("list-group-item").text(elem.type);
-            var button = $("<button>").attr("type","button")
+            let div = $("<div>").addClass("card").css("width", "30%").css("margin-top", "2%");
+            let id = $("<div>").addClass("card-header").text("Id# " + elem.id);
+            let ul = $("<ul>").addClass("list-group list-group-flush");
+            let liIsbn = $("<li>").addClass("list-group-item").text(elem.isbn);
+            let liTitle = $("<li>").addClass("list-group-item").text(elem.title);
+            let liAuthor = $("<li>").addClass("list-group-item").text(elem.author);
+            let liPublisher = $("<li>").addClass("list-group-item").text(elem.publisher);
+            let liType = $("<li>").addClass("list-group-item").text(elem.type);
+            let button = $("<button>").attr("type","button")
                 .css("width", "100px").data("id", elem.id).text("delete");
-            var button2 = $("<button>").attr("type","button")
+            let button2 = $("<button>").attr("type","button")
                 .css("width", "100px").data("book", elem).text("edit");
 
 
@@ -63,7 +63,7 @@ function showBooks() {
 
 
             button2.on("click", function () {
-                var book = $(this).data("book");
+                let book = $(this).data("book");
                 $("#id").val(book.id);
                 $("#isbn").val(book.isbn);
                 $("#title").val(book.title);
@@ -99,13 +99,13 @@ function deleteBook(id) {
 
 function editBook() {
 
-    var id =  $("#id").val();
-    var isbn = $("#isbn").val();
-    var title = $("#title").val();
-    var author = $("#author").val();
-    var publisher = $("#publisher").val();
-    var type = $("#type").val();
-    var book = {id, isbn, title, author, publisher, type};
+    let id =  $("#id").val();
+    let isbn = $("#isbn").val();
+    let title = $("#title").val();
+    let author = $("#author").val();
+    let publisher = $("#publisher").val();
+    let type = $("#type").val();
+    let book = {id, isbn, title, author, publisher, type};
 
 
     $.ajax({
@@ -131,12 +131,12 @@ function editBook() {
 
 
 function addBook() {
-    var isbn = $("#isbn").val();
-    var title = $("#title").val();
-    var author = $("#author").val();
-    var publisher = $("#publisher").val();
-    var type = $("#type").val();
-    var book = {isbn, title, author, publisher, type};
+    let isbn = $("#isbn").val();
+    let title = $("#title").val();
+    let author = $("#author").val();
+    let publisher = $("#publisher").val();
+    let type = $("#type").val();
+    let book = {isbn, title, author, publisher, type};
 
     $.ajax({
         headers: {
