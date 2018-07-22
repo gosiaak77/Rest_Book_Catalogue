@@ -47,6 +47,13 @@ public class MemoryBookService {
 
     }
 
+    public long getLastId(){
+        long lastId = 0;
+        Book book = getList().get(list.size()-1);
+        lastId = book.getId();
+        return lastId;
+    }
+
 
 }
 

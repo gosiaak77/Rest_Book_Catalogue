@@ -1,3 +1,12 @@
+function Book(id, isbn, title, author, publisher, type){
+    this.id = id;
+    this.isbn = isbn;
+    this.title = title;
+    this.author = author;
+    this.publisher = publisher;
+    this.type = type;
+}
+
 $(function () {
     showBooks();
     $("#submit").on("click", addBook);
@@ -12,18 +21,25 @@ function showBook(id) {
         data: {},
         type: "GET",
         dataType: "json",
-        success: displayBook,
+        success: function (json) {
+        },
+        error: function (xhr, status,
+                         errorThrown) {
+        },
+        complete: function (xhr, status) {
+            displayBook();
+        }
     });
 
     function displayBook(book) {
         var div = $("<div>");
-        var p0 = $("<p>").text(book.id);
-        var p = $("<p>").text(book.isbn);
-        var p2 = $("<p>").text(book.title);
-        var p3 = $("<p>").text(book.author);
-        var p4 = $("<p>").text(book.publisher);
-        var p5 = $("<p>").text(book.type);
-        div.append(p0).append(p).append(p2).append(p3).append(p4).append(p5);
+        var p1 = $("<p>").text(book.id);
+        var p2 = $("<p>").text(book.isbn);
+        var p3 = $("<p>").text(book.title);
+        var p4 = $("<p>").text(book.author);
+        var p5 = $("<p>").text(book.publisher);
+        var p6 = $("<p>").text(book.type);
+        div.append(p1).append(p2).append(p3).append(p4).append(p5).append(p6);
         $("#books").append(div);
     }
 
@@ -35,7 +51,14 @@ function showBooks() {
         data: {},
         type: "GET",
         dataType: "json",
-        success: displayBooks,
+        success: function (json) {
+        },
+        error: function (xhr, status,
+                         errorThrown) {
+        },
+        complete: function (xhr, status) {
+            displayBooks();
+        }
     });
 
 
@@ -44,8 +67,12 @@ function showBooks() {
 
         for (elem of books) {
             var div = $("<div>");
-            var p = $("<p>").text(elem.isbn);
-            var p2 = $("<p>").text(elem.title);
+            var p1 = $("<p>").text(elem.id);
+            var p2 = $("<p>").text(elem.isbn);
+            var p3 = $("<p>").text(elem.title);
+            var p4 = $("<p>").text(elem.author);
+            var p5 = $("<p>").text(elem.publisher);
+            var p6 = $("<p>").text(elem.type);
             var button = $("<button>").data("id", elem.id).text("delete");
             var button2 = $("<button>").data("book", elem).text("edit");
 
@@ -66,7 +93,7 @@ function showBooks() {
             });
 
 
-            div.append(p).append(p2).append(button).append(button2);
+            div.append(p1).append(p2).append(p3).append(p4).append(p5).append(p6).append(button).append(button2);
             $("#books").append(div);
         }
     }
@@ -91,16 +118,13 @@ function deleteBook(id) {
 }
 
 function editBook() {
-
-    var id =  $("#id").val();
-    var isbn = $("#isbn").val();
-    var title = $("#title").val();
-    var author = $("#author").val();
-    var publisher = $("#publisher").val();
-    var type = $("#type").val();
-    var book = {id, isbn, title, author, publisher, type};
-
-
+    var book = new Book(
+        $(".id").val(),
+        $(".isbn").val(),
+        $(".title").val(),
+        $(".author").val(),
+        $(".publisher").val(),
+        $(".type").val() );
     $.ajax({
         headers: {
             'Content-Type': 'application/json'
@@ -149,3 +173,4 @@ function addBook() {
         }
     });
 }
+

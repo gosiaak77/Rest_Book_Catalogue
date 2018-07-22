@@ -36,7 +36,7 @@ public class BookController {
 
     @PostMapping("")
     public void addBook(@RequestBody Book book){
-        book.setId(memoryBookService.getList().size()+1);
+        book.setId(memoryBookService.getLastId()+1);
         memoryBookService.getList().add(book);
     }
 
