@@ -1,12 +1,3 @@
-function Book(id, isbn, title, author, publisher, type){
-    this.id = id;
-    this.isbn = isbn;
-    this.title = title;
-    this.author = author;
-    this.publisher = publisher;
-    this.type = type;
-}
-
 $(function () {
     showBooks();
     $("#submit").on("click", addBook);
@@ -21,25 +12,18 @@ function showBook(id) {
         data: {},
         type: "GET",
         dataType: "json",
-        success: function (json) {
-        },
-        error: function (xhr, status,
-                         errorThrown) {
-        },
-        complete: function (xhr, status) {
-            displayBook();
-        }
+        success: displayBook,
     });
 
     function displayBook(book) {
-        var div = $("<div>");
-        var p1 = $("<p>").text(book.id);
-        var p2 = $("<p>").text(book.isbn);
-        var p3 = $("<p>").text(book.title);
-        var p4 = $("<p>").text(book.author);
-        var p5 = $("<p>").text(book.publisher);
-        var p6 = $("<p>").text(book.type);
-        div.append(p1).append(p2).append(p3).append(p4).append(p5).append(p6);
+        var div = $("<div>").addClass("card").style("width: 18rem;");
+        var id = $("<div>").addClass("card-header").text("Id# ").text(elem.id);
+        var isbn = $("<p>").text(elem.isbn);
+        var title = $("<p>").text(elem.title);
+        var author = $("<p>").text(elem.author);
+        var publisher = $("<p>").text(elem.publisher);
+        var type = $("<p>").text(elem.type);
+        div.append(id).append(isbn).append(isbn).append(title).append(author).append(publisher).append(type);
         $("#books").append(div);
     }
 
@@ -51,14 +35,7 @@ function showBooks() {
         data: {},
         type: "GET",
         dataType: "json",
-        success: function (json) {
-        },
-        error: function (xhr, status,
-                         errorThrown) {
-        },
-        complete: function (xhr, status) {
-            displayBooks();
-        }
+        success: displayBooks,
     });
 
 
@@ -66,19 +43,22 @@ function showBooks() {
         $("#books").empty();
 
         for (elem of books) {
-            var div = $("<div>");
-            var p1 = $("<p>").text(elem.id);
-            var p2 = $("<p>").text(elem.isbn);
-            var p3 = $("<p>").text(elem.title);
-            var p4 = $("<p>").text(elem.author);
-            var p5 = $("<p>").text(elem.publisher);
-            var p6 = $("<p>").text(elem.type);
-            var button = $("<button>").data("id", elem.id).text("delete");
-            var button2 = $("<button>").data("book", elem).text("edit");
+            var div = $("<div>").addClass("card").css("width", "30%").css("margin-top", "2%");
+            var id = $("<div>").addClass("card-header").text("Id# " + elem.id);
+            var ul = $("<ul>").addClass("list-group list-group-flush");
+            var liIsbn = $("<li>").addClass("list-group-item").text(elem.isbn);
+            var liTitle = $("<li>").addClass("list-group-item").text(elem.title);
+            var liAuthor = $("<li>").addClass("list-group-item").text(elem.author);
+            var liPublisher = $("<li>").addClass("list-group-item").text(elem.publisher);
+            var liType = $("<li>").addClass("list-group-item").text(elem.type);
+            var button = $("<button>").attr("type","button")
+                .css("width", "100px").data("id", elem.id).text("delete");
+            var button2 = $("<button>").attr("type","button")
+                .css("width", "100px").data("book", elem).text("edit");
 
 
             button.on("click", function () {
-               deleteBook($(this).data("id"));
+                deleteBook($(this).data("id"));
             });
 
 
@@ -92,8 +72,8 @@ function showBooks() {
                 $("#type").val(book.type);
             });
 
-
-            div.append(p1).append(p2).append(p3).append(p4).append(p5).append(p6).append(button).append(button2);
+            ul.append(liIsbn).append(liTitle).append(liAuthor).append(liPublisher).append(liType)
+            div.append(id).append(ul).append(button).append(button2);
             $("#books").append(div);
         }
     }
@@ -118,13 +98,16 @@ function deleteBook(id) {
 }
 
 function editBook() {
-    var book = new Book(
-        $(".id").val(),
-        $(".isbn").val(),
-        $(".title").val(),
-        $(".author").val(),
-        $(".publisher").val(),
-        $(".type").val() );
+
+    var id =  $("#id").val();
+    var isbn = $("#isbn").val();
+    var title = $("#title").val();
+    var author = $("#author").val();
+    var publisher = $("#publisher").val();
+    var type = $("#type").val();
+    var book = {id, isbn, title, author, publisher, type};
+
+
     $.ajax({
         headers: {
             'Content-Type': 'application/json'
